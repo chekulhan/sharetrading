@@ -127,7 +127,7 @@ This trading strategy is a moving average cross over strategy. If the share is i
 
 selected_share = st.selectbox(
     'Which share would you like to view?',
-    ['MEL.MC', 'REP.MC', 'RBTZ.AX', 'PPT.AX'])
+    ['BBVA.MC', 'SAN.MC', 'ANE.MC', 'MEL.MC', 'REP.MC', 'OFX.AX', 'XC02.AX', 'PEN.AX', 'RBTZ.AX', 'WMI.AX', 'WAR.AX' ,'AGL.AX', 'NUF.AX', 'WWI.AX', 'PPT.AX', 'FLC.AX','CSL.AX', 'CRYP.AX', 'PE1.AX', 'PCX.AX', 'MQAE.AX', 'CSC.AX', 'RIO.AX'])
 
 if not selected_share:
     st.warning("Select one share")
