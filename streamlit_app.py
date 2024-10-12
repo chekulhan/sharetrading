@@ -74,10 +74,18 @@ gdp_df = get_gdp_data()
 
 # Define your strategy class (example)
 class MovingAverageCross(bt.Strategy):
+
+    params = (
+        ('ma_short_period', 15),  # Default value 15
+        ('ma_long_period', 30),   # Default value 30
+    )
+
+
+
     # Define parameters and methods for your strategy
     def __init__(self):
-        self.ma_short = bt.indicators.SimpleMovingAverage(self.data.close, period=15)
-        self.ma_long = bt.indicators.SimpleMovingAverage(self.data.close, period=30)
+        self.ma_short = bt.indicators.SimpleMovingAverage(self.data.close, period=self.params.ma_short_period)
+        self.ma_long = bt.indicators.SimpleMovingAverage(self.data.close, period=self.params.ma_long_period)
 
     def next(self):
         current_date = self.data.datetime.date(0)  # Get the current date
@@ -108,7 +116,7 @@ class MovingAverageCross(bt.Strategy):
 '''
 # :chart_with_upwards_trend: My Share Trading Strategies
 
-This trading strategy is a moving average cross over strategy. If the share is in a sidewards trend, this strategy is not recommended.
+This page displays Position trading strategies. The initial strategy is a moving average cross over strategy. If the share is in a sidewards trend, this strategy is not recommended.
 '''
 
 # Add some spacing
@@ -127,13 +135,17 @@ This trading strategy is a moving average cross over strategy. If the share is i
 
 selected_share = st.selectbox(
     'Which share would you like to view?',
-    ['BBVA.MC', 'SAN.MC', 'ANE.MC', 'MEL.MC', 'REP.MC', 'OFX.AX', 'XC02.AX', 'PEN.AX', 'RBTZ.AX', 'WMI.AX', 'WAR.AX' ,'AGL.AX', 'NUF.AX', 'WWI.AX', 'PPT.AX', 'FLC.AX','CSL.AX', 'CRYP.AX', 'PE1.AX', 'PCX.AX', 'MQAE.AX', 'CSC.AX', 'RIO.AX'])
+    ['^HSI', 'AGL.AX', 'ANE.MC', 'BBVA.MC', 'CRYP.AX', 'CSC.AX', 'CSL.AX', 'FLC.AX', 'MEL.MC', 'MQAE.AX', 'NUF.AX', 'OFX.AX', 'PCX.AX', 'PE1.AX', 'PEN.AX', 'PPT.AX', 'RBTZ.AX', 'REP.MC', 'RIO.AX', 'SAN.MC', 'SYR.AX', 'WAR.AX', 'WMI.AX', 'WWI.AX', 'XCO2.AX'])
 
 if not selected_share:
     st.warning("Select one share")
 
 start_date = st.date_input("Start Date", value=pd.to_datetime('2024-01-01'))
 end_date = st.date_input("End Date", value=datetime.today())
+
+ma_short_period = st.number_input("Enter short moving average period", value=15)
+ma_long_period = st.number_input("Enter long moving average period", value=30)
+
 
 ''
 
@@ -174,7 +186,7 @@ if start_date and end_date and start_date < end_date:
                 cerebro.adddata(data)
 
                 # Add the strategy to cerebro
-                cerebro.addstrategy(MovingAverageCross)
+                cerebro.addstrategy(MovingAverageCross, ma_short_period=ma_short_period, ma_long_period=ma_long_period)
 
                 # Run the backtest
                 cerebro.run()
