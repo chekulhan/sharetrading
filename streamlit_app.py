@@ -132,7 +132,7 @@ This page displays Position trading strategies. The initial strategy is a moving
 #)
 
 
-
+# add to list of shares
 selected_share = st.selectbox(
     'Which share would you like to view?',
     ['^HSI', 'AGL.AX',  'ANA.MC', 'ANE.MC', 'BBVA.MC', 'BOE.AX', 'CLNX.MC',  'CRYP.AX', 'CSC.AX', 'CSL.AX', 'FLC.AX', 'MEL.MC', 'MQAE.AX', 'NUF.AX', 'OHLA.MC', 'OFX.AX', 'PCX.AX', 'PE1.AX', 'PEN.AX', 'PPT.AX', 'RBTZ.AX', 'REP.MC', 'RIO.AX', 'SAN.MC', 'SYR.AX', 'WAR.AX', 'WMI.AX', 'WWI.AX', 'XCO2.AX'])
